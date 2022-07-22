@@ -1,3 +1,4 @@
+from flask import request
 from flask_restx import Namespace, Resource
 
 from project.container import genre_service
@@ -15,6 +16,7 @@ class GenresView(Resource):
         """
         Get all genres.
         """
+        a = request.args
         return genre_service.get_all(**page_parser.parse_args())
 
 

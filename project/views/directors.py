@@ -71,6 +71,7 @@ class DirectorsView(Resource):
         """
         Get all directors.
         """
+        a = request.args
         return director_service.get_all(**page_parser.parse_args())
 
 
