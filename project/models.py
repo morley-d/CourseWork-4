@@ -13,7 +13,7 @@ class Genre(models.Base):
 class Director(models.Base):
     __tablename__ = 'directors'
 
-    name = Column(String(100), unique=False, nullable=False)
+    name = Column(String(100), unique=True, nullable=False)
 
 
 class Movie(models.Base):
@@ -30,3 +30,13 @@ class Movie(models.Base):
 
     genre = relationship("Genre")
     director = relationship("Director")
+
+
+class User(models.Base):
+    __tablename__ = 'users'
+
+    email = Column(String(100), unique=True, nullable=False)
+    password_hash = Column(String(100), nullable=False)
+    name = Column(String(20))
+    surname = Column(String(20))
+    favorite_genre = Column(ForeignKey(Genre.id))
