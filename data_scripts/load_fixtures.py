@@ -19,7 +19,7 @@ def load_data(data: List[Dict[str, Any]], model: Type[models.Base]) -> None:
 
 
 if __name__ == '__main__':
-    fixtures: Dict[str, List[Dict[str, Any]]] = read_json("fixtures.json")
+    fixtures: Dict[str, List[Dict[str, Any]]] = read_json("data_scripts/fixtures.json")
 
     app = create_app(config)
 
