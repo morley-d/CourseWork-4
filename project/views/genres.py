@@ -16,7 +16,6 @@ class GenresView(Resource):
         """
         Get all genres.
         """
-        a = request.args
         return genre_service.get_all(**page_parser.parse_args())
 
 
