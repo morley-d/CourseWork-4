@@ -4,3 +4,11 @@ class BaseServiceError(Exception):
 
 class ItemNotFound(BaseServiceError):
     code = 404
+
+
+class InvalidToken(BaseServiceError):
+    code = 403
+
+
+class IncorrectPassword(BaseServiceError):
+    code = 403
