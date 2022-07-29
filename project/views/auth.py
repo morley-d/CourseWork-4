@@ -3,7 +3,7 @@ from flask_restx import Namespace, Resource
 
 from project.container import auth_service, user_service
 
-auth_ns = Namespace("auth")
+auth_ns = Namespace("auth", description="Routes for Authorization and Authentication")
 
 
 """Роуты для авторизации"""

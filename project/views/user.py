@@ -5,7 +5,7 @@ from project.container import user_service
 from project.decorators import auth_required
 from project.exceptions import ItemNotFound
 
-user_ns = Namespace('user')
+user_ns = Namespace('user', description="Routes for working with users")
 
 
 @user_ns.route('/')

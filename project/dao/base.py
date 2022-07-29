@@ -22,6 +22,17 @@ class BaseDAO(Generic[T]):
     def get_by_id(self, pk: int) -> Optional[T]:
         return self._db_session.query(self.__model__).get(pk)
 
+    def add_in_favorites(self, user, mov_id):
+        movie = self._db_session.query(self.__model__).get(mov_id)
+        user.favorite_movies.append(movie)
+        return self._db_session.commit()
+
+    def del_for_favorites(self, user, mov_id):
+        movie = self._db_session.query(self.__model__).get(mov_id)
+        user.favorite_movies.remove(movie)
+        return self._db_session.commit()
+
+
     def get_all(self, page: Optional[int] = None) -> List[T]:
         stmt: BaseQuery = self._db_session.query(self.__model__)
         if page:

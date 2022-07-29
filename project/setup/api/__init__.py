@@ -6,4 +6,5 @@ api = Api(
     },
     title="Flask Course Project 4",
     doc="/docs",
+    version='1.1'
 )

@@ -9,6 +9,7 @@ from project.views.directors import directors_ns
 from project.views.genres import genres_ns
 from project.views.movies import movies_ns
 from project.views.user import user_ns
+from project.views.favorites import favorites_ns
 
 
 def base_service_error_handler(exception: BaseServiceError):
@@ -30,6 +31,7 @@ def create_app(config_obj):
     # Регистрация эндпоинтов
     api.add_namespace(auth_ns)
     api.add_namespace(user_ns)
+    api.add_namespace(favorites_ns)
     api.add_namespace(movies_ns)
     api.add_namespace(directors_ns)
     api.add_namespace(genres_ns)
