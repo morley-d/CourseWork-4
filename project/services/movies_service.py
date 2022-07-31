@@ -14,6 +14,13 @@ class MoviesService:
             return movie
         raise ItemNotFound(f'Movie with pk={pk} not exists.')
 
+    def add_in_favorites(self, user, mov_id):
+        return self.dao.add_in_favorites(user, mov_id)
+
+    def del_for_favorites(self, user, mov_id):
+        return self.dao.del_for_favorites(user, mov_id)
+
+
     def get_all(self, page: Optional[int] = None) -> list[Movie]:
         # isnew = status == "new"
         return self.dao.get_all(page=page)

@@ -1,8 +1,8 @@
 from sqlalchemy import Column, String, Integer, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 
 from project.setup.db import models
-
+from project.setup.db import db
 
 class Genre(models.Base):
     __tablename__ = 'genres'
@@ -14,6 +14,12 @@ class Director(models.Base):
     __tablename__ = 'directors'
 
     name = Column(String(100), unique=True, nullable=False)
+
+
+favorites = db.Table('favorites',
+                     Column('user_id', Integer, ForeignKey('users.id'), primary_key=True),
+                     Column('movie_id', Integer, ForeignKey('movies.id'), primary_key=True)
+                     )
 
 
 class Movie(models.Base):
@@ -40,3 +46,4 @@ class User(models.Base):
     name = Column(String(20))
     surname = Column(String(20))
     favorite_genre = Column(ForeignKey(Genre.id))
+    favorite_movies = relationship('Movie', secondary=favorites, backref=backref('users'))

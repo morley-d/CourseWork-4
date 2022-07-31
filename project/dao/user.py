@@ -25,12 +25,18 @@ class UserDAO:
         self.session.delete(user)
         self.session.commit()
 
-    def update(self, user_data):
-        user = self.get_one(user_data.get("id"))
+    def update(self, user_data, email):
+        user = self.get_by_email(email)
 
-        user.email = user_data.get("email")
+        user.name = user_data.get("name")
+        user.surname = user_data.get("surname")
+        user.favorite_genre = user_data.get("favorite_genre")
+
+        self.session.add(user)
+        self.session.commit()
+
+    def update_password(self, user_data, user):
         user.password = user_data.get("password")
-        user.role = user_data.get("role")
 
         self.session.add(user)
         self.session.commit()

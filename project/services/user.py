@@ -1,13 +1,17 @@
 import base64
 import hashlib
 import hmac
+
+import jwt
 from flask import current_app
+from werkzeug.exceptions import MethodNotAllowed
+
 from project.dao.user import UserDAO
 from project.config import config
 
-
 # PWD_HASH_SALT = current_app.config.get('PWD_HASH_SALT')
 # PWD_HASH_ITERATIONS = current_app.config.get('PWD_HASH_ITERATIONS')
+from project.exceptions import InvalidToken, IncorrectPassword
 
 PWD_HASH_SALT = config.PWD_HASH_SALT
 PWD_HASH_ITERATIONS = config.PWD_HASH_ITERATIONS
@@ -30,12 +34,37 @@ class UserService:
         data["password"] = self.get_hash(data["password"])
         return self.dao.create(data)
 
-    def update(self, data):
-        self.dao.update(data)
+    def update(self, data, email):
+        self.dao.update(data, email)
         return self.dao
 
     def delete(self, uid):
         self.dao.delete(uid)
+
+    def update_password(self, data: dict, email: str) -> None:
+        """
+        Partially update user information
+
+        :raises MethodNotAllowed: If wrong fields passed
+        "raises IncorrectPassword: If password isn't correct
+        """
+
+        # Check data is okay
+        user = self.get_by_email(email)
+        current_password = data.get('old_password')
+        new_password = data.get('new_password')
+
+        if None in [current_password, new_password]:
+            raise MethodNotAllowed
+
+        if not self.compare_passwords(user.password, current_password):
+            raise IncorrectPassword
+
+        # Hash password and update
+        data = {
+            'password': (self.get_hash(new_password))
+        }
+        self.dao.update_password(data, user)
 
     def get_hash(self, password):
         hash_digest = hashlib.pbkdf2_hmac(
@@ -45,6 +74,21 @@ class UserService:
             PWD_HASH_ITERATIONS
         )
         return base64.b64encode(hash_digest)
+
+    def get_email_from_token(self, token: str) -> str:
+        """
+        Get email from token
+
+        :raise InvalidToken: if no valid token passed
+        """
+        try:
+            data = jwt.decode(token,
+                              current_app.config.get('JWT_SECRET'),
+                              algorithms=[current_app.config.get('JWT_ALGO')])
+            email = data.get('email')
+            return email
+        except Exception:
+            raise InvalidToken
 
     def compare_passwords(self, password_hash, other_password):
         decoded_hash = base64.b64decode(password_hash)
