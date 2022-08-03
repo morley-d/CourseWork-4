@@ -1,18 +1,16 @@
-from project.dao import GenresDAO, DirectorsDAO
-from project.dao.main import MoviesDAO
-from project.dao.user import UserDAO
+"""Создание объектов DAO и сервисов, который далее будет импортироваться
+    в другие модули"""
 
-from project.services import GenresService, DirectorsService
+from project.dao import GenresDAO, DirectorsDAO, MoviesDAO, UsersDAO
+from project.services import GenresService, DirectorsService, MoviesService, UserService
 from project.services.auth import AuthService
-from project.services.movies_service import MoviesService
-from project.services.user import UserService
 from project.setup.db import db
 
 # DAO
 genre_dao = GenresDAO(db.session)
 director_dao = DirectorsDAO(db.session)
 movie_dao = MoviesDAO(db.session)
-user_dao = UserDAO(db.session)
+user_dao = UsersDAO(db.session)
 
 # Services
 genre_service = GenresService(dao=genre_dao)

@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, render_template
-from flask_cors import CORS
+"""Создание и настройка эеземпляра Flask приложения"""
 
+from flask import Flask, jsonify, render_template
+# from flask_cors import CORS
 from project.exceptions import BaseServiceError
 from project.setup.api import api
 from project.setup.db import db
@@ -24,7 +25,7 @@ def create_app(config_obj):
     def index():
         return render_template('index.html')
 
-    CORS(app=app)
+    # CORS(app=app)
     db.init_app(app)
     api.init_app(app)
 

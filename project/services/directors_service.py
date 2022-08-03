@@ -1,8 +1,8 @@
-from typing import Optional
+"""Класс DAO для директоров"""
 
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
-from project.models import Director
+from project.setup.db.models import Director
 
 
 class DirectorsService:
@@ -14,5 +14,5 @@ class DirectorsService:
             return director
         raise ItemNotFound(f'Director with pk={pk} not exists.')
 
-    def get_all(self, page: Optional[int] = None) -> list[Director]:
-        return self.dao.get_all(page=page)
+    def get_all(self, **kwargs) -> list[Director]:
+        return self.dao.get_all(page=kwargs["page"])

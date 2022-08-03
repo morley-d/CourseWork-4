@@ -1,24 +1,24 @@
+"""Класс DAO для пользователей"""
+
 import base64
 import hashlib
 import hmac
-
 import jwt
 from flask import current_app
 from werkzeug.exceptions import MethodNotAllowed
-
-from project.dao.user import UserDAO
+from project.dao.base import BaseDAO
 from project.config import config
+from project.exceptions import InvalidToken, IncorrectPassword
+
 
 # PWD_HASH_SALT = current_app.config.get('PWD_HASH_SALT')
 # PWD_HASH_ITERATIONS = current_app.config.get('PWD_HASH_ITERATIONS')
-from project.exceptions import InvalidToken, IncorrectPassword
-
 PWD_HASH_SALT = config.PWD_HASH_SALT
 PWD_HASH_ITERATIONS = config.PWD_HASH_ITERATIONS
 
 
 class UserService:
-    def __init__(self, dao: UserDAO):
+    def __init__(self, dao: BaseDAO):
         self.dao = dao
 
     def get_one(self, uid):
@@ -31,19 +31,33 @@ class UserService:
         return self.dao.get_all()
 
     def create(self, data):
+        """
+        Сreating a new user
+        :param data: data to update user information (email, password)
+        :return:
+        """
         data["password"] = self.get_hash(data["password"])
-        return self.dao.create(data)
+        return self.dao.create_user(data)
 
     def update(self, data, email):
-        self.dao.update(data, email)
-        return self.dao
+        """
+        Partially update user information
+        :param data: data to update user information (name, surname, favorite_genre)
+        :param email: users email
+        :return:
+        """
+        return self.dao.update_user(data, email)
 
     def delete(self, uid):
+        """
+        Delete user
+        :param uid: users ID
+        """
         self.dao.delete(uid)
 
     def update_password(self, data: dict, email: str) -> None:
         """
-        Partially update user information
+        Update user password
 
         :raises MethodNotAllowed: If wrong fields passed
         "raises IncorrectPassword: If password isn't correct

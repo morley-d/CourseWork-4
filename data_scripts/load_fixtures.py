@@ -1,3 +1,5 @@
+"""Скрипт для наполнеия БД данными из файла fixtures.json"""
+
 import os
 os.environ['FLASK_ENV'] = 'development'
 from contextlib import suppress
@@ -6,9 +8,9 @@ from typing import Any, Dict, List, Type
 from sqlalchemy.exc import IntegrityError
 
 from project.config import config
-from project.models import Genre, Director, Movie
+from project.setup.db.models import Genre, Director, Movie
 from project.server import create_app
-from project.setup.db import db, models
+from project.setup.db import db
 from project.utils import read_json
 
 

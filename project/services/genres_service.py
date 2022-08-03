@@ -1,8 +1,8 @@
-from typing import Optional
+"""Класс DAO для жанров"""
 
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
-from project.models import Genre
+from project.setup.db.models import Genre
 
 
 class GenresService:
@@ -14,5 +14,5 @@ class GenresService:
             return genre
         raise ItemNotFound(f'Genre with pk={pk} not exists.')
 
-    def get_all(self, page: Optional[int] = None) -> list[Genre]:
-        return self.dao.get_all(page=page)
+    def get_all(self, **kwargs) -> list[Genre]:
+        return self.dao.get_all(page=kwargs["page"])

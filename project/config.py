@@ -1,3 +1,5 @@
+"""Настройки для различных Flask конфигураций"""
+
 import base64
 import os
 from pathlib import Path
@@ -34,7 +36,7 @@ class TestingConfig(BaseConfig):
 
 
 class DevelopmentConfig(BaseConfig):
-    DEBUG = True
+    DEBUG = False
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + BASE_DIR.joinpath('project.db').as_posix()
 
@@ -45,7 +47,7 @@ class ProductionConfig(BaseConfig):
 
 
 class ConfigFactory:
-    flask_env = os.getenv('FLASK_ENV')
+    flask_env = os.getenv('FLASK_ENV', 'development')
 
     @classmethod
     def get_config(cls) -> Type[BaseConfig]:
