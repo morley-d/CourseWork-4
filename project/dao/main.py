@@ -1,5 +1,7 @@
+"""Наследуемые DAO для сервисов"""
+
 from project.dao.base import BaseDAO
-from project.models import Genre, Director, Movie, User
+from project.setup.db.models import Genre, Director, Movie, User
 
 
 class GenresDAO(BaseDAO[Genre]):

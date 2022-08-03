@@ -1,7 +1,7 @@
 import pytest
 
 from project.dao import MoviesDAO
-from project.models import Movie
+from project.setup.db.models import Movie
 
 
 class TestMoviesDAO:

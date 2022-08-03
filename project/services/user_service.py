@@ -1,3 +1,5 @@
+"""Класс DAO для пользователей"""
+
 import base64
 import hashlib
 import hmac
@@ -29,19 +31,33 @@ class UserService:
         return self.dao.get_all()
 
     def create(self, data):
+        """
+        Сreating a new user
+        :param data: data to update user information (email, password)
+        :return:
+        """
         data["password"] = self.get_hash(data["password"])
         return self.dao.create_user(data)
 
     def update(self, data, email):
-        self.dao.update_user(data, email)
-        return self.dao
+        """
+        Partially update user information
+        :param data: data to update user information (name, surname, favorite_genre)
+        :param email: users email
+        :return:
+        """
+        return self.dao.update_user(data, email)
 
     def delete(self, uid):
+        """
+        Delete user
+        :param uid: users ID
+        """
         self.dao.delete(uid)
 
     def update_password(self, data: dict, email: str) -> None:
         """
-        Partially update user information
+        Update user password
 
         :raises MethodNotAllowed: If wrong fields passed
         "raises IncorrectPassword: If password isn't correct

@@ -1,6 +1,6 @@
 import pytest
 
-from project.models import Movie, Genre, Director
+from project.setup.db.models import Movie, Genre, Director
 
 
 class TestMoviesView:

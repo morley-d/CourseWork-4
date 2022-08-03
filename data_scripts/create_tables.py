@@ -1,3 +1,4 @@
+"""Скрипт для создания БД и таблиц сущностей"""
 
 import os
 os.environ['FLASK_ENV'] = 'development'

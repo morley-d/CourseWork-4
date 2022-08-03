@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 
 from project.exceptions import ItemNotFound
-from project.models import Movie
+from project.setup.db.models import Movie
 from project.services import MoviesService
 
 

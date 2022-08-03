@@ -2,7 +2,7 @@ import calendar
 import datetime
 
 import jwt
-from flask import current_app
+# from flask import current_app
 from project.config import config
 from flask_restx import abort
 

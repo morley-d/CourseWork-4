@@ -1,3 +1,5 @@
+"""Настройки для различных Flask конфигураций"""
+
 import base64
 import os
 from pathlib import Path

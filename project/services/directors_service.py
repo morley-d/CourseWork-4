@@ -1,8 +1,8 @@
-from typing import Optional
+"""Класс DAO для директоров"""
 
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
-from project.models import Director
+from project.setup.db.models import Director
 
 
 class DirectorsService:

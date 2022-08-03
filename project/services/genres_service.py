@@ -1,8 +1,8 @@
-from typing import Optional
+"""Класс DAO для жанров"""
 
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
-from project.models import Genre
+from project.setup.db.models import Genre
 
 
 class GenresService:

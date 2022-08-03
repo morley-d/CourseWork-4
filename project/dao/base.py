@@ -1,10 +1,11 @@
-from typing import Generic, List, Optional, TypeVar
+"""Класс базового DAO"""
 
+from typing import Generic, List, Optional, TypeVar
 from flask import current_app
 from flask_sqlalchemy import BaseQuery
 from sqlalchemy.orm import scoped_session
 from werkzeug.exceptions import NotFound
-from project.setup.db.models import Base
+from project.setup.db.base_model import Base
 
 T = TypeVar('T', bound=Base)
 

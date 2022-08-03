@@ -1,6 +1,8 @@
+"""Класс DAO для фильмов"""
+
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
-from project.models import Movie
+from project.setup.db.models import Movie
 
 
 class MoviesService:

@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 
 from project.exceptions import ItemNotFound
-from project.models import Director
+from project.setup.db.models import Director
 from project.services import DirectorsService
 
 

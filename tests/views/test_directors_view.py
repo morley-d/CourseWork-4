@@ -1,6 +1,6 @@
 import pytest
 
-from project.models import Director
+from project.setup.db.models import Director
 
 
 class TestDirectorsView:
