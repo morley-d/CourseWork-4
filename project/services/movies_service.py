@@ -1,5 +1,3 @@
-from typing import Optional
-
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
 from project.models import Movie
@@ -21,6 +19,5 @@ class MoviesService:
         return self.dao.del_for_favorites(user, mov_id)
 
 
-    def get_all(self, page: Optional[int] = None) -> list[Movie]:
-        # isnew = status == "new"
-        return self.dao.get_all(page=page)
+    def get_all(self, **kwargs) -> list[Movie]:
+        return self.dao.get_all(**kwargs)

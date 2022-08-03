@@ -1,24 +1,22 @@
 import base64
 import hashlib
 import hmac
-
 import jwt
 from flask import current_app
 from werkzeug.exceptions import MethodNotAllowed
-
-from project.dao.user import UserDAO
+from project.dao.base import BaseDAO
 from project.config import config
+from project.exceptions import InvalidToken, IncorrectPassword
+
 
 # PWD_HASH_SALT = current_app.config.get('PWD_HASH_SALT')
 # PWD_HASH_ITERATIONS = current_app.config.get('PWD_HASH_ITERATIONS')
-from project.exceptions import InvalidToken, IncorrectPassword
-
 PWD_HASH_SALT = config.PWD_HASH_SALT
 PWD_HASH_ITERATIONS = config.PWD_HASH_ITERATIONS
 
 
 class UserService:
-    def __init__(self, dao: UserDAO):
+    def __init__(self, dao: BaseDAO):
         self.dao = dao
 
     def get_one(self, uid):
@@ -32,10 +30,10 @@ class UserService:
 
     def create(self, data):
         data["password"] = self.get_hash(data["password"])
-        return self.dao.create(data)
+        return self.dao.create_user(data)
 
     def update(self, data, email):
-        self.dao.update(data, email)
+        self.dao.update_user(data, email)
         return self.dao
 
     def delete(self, uid):

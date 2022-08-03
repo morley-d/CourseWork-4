@@ -6,7 +6,7 @@ from flask import current_app
 from project.config import config
 from flask_restx import abort
 
-from project.services.user import UserService
+from project.services.user_service import UserService
 
 # JWT_ALGO = current_app.config.get('JWT_ALGORITHM')
 # JWT_SECRET = current_app.config.get('JWT_SECRET')

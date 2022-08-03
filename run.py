@@ -19,4 +19,4 @@ def shell():
     }
 
 if __name__ == '__main__':
-    app.run(port=7777, debug=True)
+    app.run(port=7777)

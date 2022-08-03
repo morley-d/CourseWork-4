@@ -1,3 +1,4 @@
+
 import os
 os.environ['FLASK_ENV'] = 'development'
 from project.config import config
